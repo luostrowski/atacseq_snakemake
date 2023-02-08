@@ -1,0 +1,16 @@
+# Config File
+
+adapters:
+  ILLUMINACLIP:NexteraPE-PE.fa:2:30:10:8:true
+
+bt2_genome:
+  /home/groups/hoolock2/u0/genomes/ucsc/mm10/indexes/bowtie2/mm10
+
+mt_chr:
+  chrM
+  
+gtf_file:
+  /home/groups/hoolock2/myfile.gtf
+
+bismark_ref_genome:
+  /home/groups/hoolock2/u0/genomes/ucsc/mm10

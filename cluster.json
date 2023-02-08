@@ -1,0 +1,58 @@
+{
+    "__default__":
+    {
+        "account": "davibr",
+        "mem": "30G",
+        "time": "0-24:00",
+	    "partition": "exacloud",
+	    "cores": "8",
+	    "nodes": "1",
+        "qos": "normal"
+    },
+    "fastqc_raw":
+    {
+	    "stdout": "logs/fastqcRaw_%A.out",
+	    "stderr": "logs/fastqcRaw_%A.err"
+    },
+    "trimmomatic":
+    {
+        "stdout": "logs/trimmomatic_%A.out",
+        "stderr": "logs/trimmomatic_%A.err"
+    },
+    "bowtie2":
+    {
+	    "mem": "72G",
+	    "stdout": "logs/bowtie2_%A.out",
+	    "stderr": "logs/bowtie2_%A.err"
+    },
+    "samtools_sort":
+    {
+        "stdout": "logs/samtools_sort_%A.out",
+        "stderr": "logs/samtools_sort_%A.err"
+    },
+    "samtools_index":
+    {
+        "stdout": "logs/samtools_index_%A.out",
+        "stderr": "logs/samtools_index_%A.err"
+    },
+    "remove_MT":
+    {
+        "stdout": "logs/removeMT_%A.out",
+        "stderr": "logs/removeMT_%A.err"
+    },
+    "picard_mark_dups":
+    {
+        "stdout": "logs/rmDups_%A.out",
+        "stderr": "logs/rmDups_%A.err"
+    },
+    "filter_mapq30":
+    {
+        "stdout": "logs/mapq30_%A.out",
+        "stderr": "logs/mapq30_%A.err"
+    },
+    "proper_pairs":
+    {
+        "stdout": "logs/proper_pair_%A.out",
+        "stderr": "logs/proper_pair_%A.err"
+    }
+}
