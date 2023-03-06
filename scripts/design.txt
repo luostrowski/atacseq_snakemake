@@ -1,0 +1,7 @@
+SampleID,Condition
+CTRL1,Ctrl
+CTRL2,Ctrl
+CTRL3,Ctrl
+Got2KD1,Got2KD
+Got2KD2,Got2KD
+Got2KD3,Got2KD

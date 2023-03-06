@@ -54,5 +54,45 @@
     {
         "stdout": "logs/proper_pair_%A.out",
         "stderr": "logs/proper_pair_%A.err"
+    },
+    "samtools_index_final":
+    {
+        "stdout": "logs/samtools_index_final_%A.out",
+        "stderr": "logs/samtools_index_final_%A.err"
+    },
+    "make_coverage_bigwigs":
+    {
+        "stdout": "logs/deeptools_bw_%A.out",
+        "stderr": "logs/deeptools_bw_%A.err"
+    },
+    "deeptools_bigwig_summary":
+    {
+        "stdout": "logs/deeptools_bw_summary_%A.out",
+        "stderr": "logs/deeptools_bw_summary_%A.err"
+    },
+    "deeptools_plot_cor":
+    {
+        "stdout": "logs/deeptools_corr_%A.out",
+        "stderr": "logs/deeptools_corr_%A.err"
+    },
+    "macs2_callpeaks_q05":
+    {
+        "stdout": "logs/macs2_q05_%A.out",
+        "stderr": "logs/macs2_q05_%A.err"
+    },
+    "macs2_callpeaks_p05":
+    {
+        "stdout": "logs/macs2_p05_%A.out",
+        "stderr": "logs/macs2_p05_%A.err"
+    },
+    "diffbind":
+    {
+        "stdout": "logs/diffbind_%A.out",
+        "stderr": "logs/diffbind_%A.err"
+    },
+    "annotate_sig_diff_regions":
+    {
+        "stdout": "logs/chipseeker_%A.out",
+        "stderr": "logs/chipseeker_%A.err"
     }
 }

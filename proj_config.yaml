@@ -6,11 +6,32 @@ adapters:
 bt2_genome:
   /home/groups/hoolock2/u0/genomes/ucsc/mm10/indexes/bowtie2/mm10
 
+gtf:
+  /home/groups/hoolock2/u0/genomes/ucsc/mm10/annotation/mm10.ncbiRefSeq.gtf
+
 mt_chr:
   chrM
-  
-gtf_file:
-  /home/groups/hoolock2/myfile.gtf
 
-bismark_ref_genome:
-  /home/groups/hoolock2/u0/genomes/ucsc/mm10
+effective_genome_size:
+  2652783500
+
+macs2_genome:
+  mm
+
+contrasts:
+  - Got2KD_vs_Ctrl
+
+analysis_method:
+  DBA_EDGER
+
+min_overlap:
+  2
+
+fdr_cutoff:
+  0.05
+
+data_source:
+  mm10
+
+organism:
+  Mus_musculus
