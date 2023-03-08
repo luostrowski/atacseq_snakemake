@@ -121,10 +121,10 @@ print("completed normalization")
 ###########################
 
 mydat_comp <- dba.contrast(mydat_norm,
-    group1 = mydat_norm$masks[[group_names[1]]],
-    group2 = mydat_norm$masks[[group_names[2]]],
-    name1 = group_names[1],
-    name2 = group_names[2])
+    group1 = mydat_norm$masks[[group_names[2]]],
+    group2 = mydat_norm$masks[[group_names[1]]],
+    name1 = group_names[2],
+    name2 = group_names[1])
     #categories = DBA_CONDITION)
 
 mydat_comp

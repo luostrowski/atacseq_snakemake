@@ -32,6 +32,8 @@ rule all:
         "data/deeptools/results.npz",
         "data/deeptools/heatmap_pearson.pdf",
         "data/deeptools/heatmap_spearman.pdf",
+        "data/deeptools/tss_heatmap/out_tss_matrix.gz",
+        "data/deeptools/tss_heatmap/tss_heatmap.pdf",
         expand("data/macs2/q05_output/{sample}.q05_peaks.narrowPeak", sample = SAMPLES),
         expand("data/macs2/p05_output/{sample}.p05_peaks.narrowPeak", sample = SAMPLES),
         expand("data/diffbind/{contrast}.diff.SIG.results.txt", contrast = COMPARISONS),
@@ -51,6 +53,7 @@ rule fastqc_raw:
     shell:
         "fastqc -o {params.outdir} {input.fwd} {input.rev}"
 
+# perform multiqc on fastqc results
 
 rule trimmomatic:
     input:
@@ -242,6 +245,38 @@ rule deeptools_plot_cor:
         """
         plotCorrelation --corData {input.results} --corMethod pearson --whatToPlot heatmap -o {output.pearson}
         plotCorrelation --corData {input.results} --corMethod spearman --whatToPlot heatmap -o {output.spearman}
+        """
+
+rule compute_matrix:
+    input:
+        bigwigs = expand("data/deeptools/norm_bigwigs/{sample}.SeqDepthNorm.bw", sample = SAMPLES)
+    output:
+        matrix = "data/deeptools/tss_heatmap/out_tss_matrix.gz"
+    conda:
+        "envs/deeptools.yaml"
+    params:
+        #input_bws = ','.join(expand("data/deeptools/norm_bigwigs/{sample}.SeqDepthNorm.bw", sample = SAMPLES)),
+        gtf_file = config["gtf"],
+        outfile = "data/deeptools/tss_heatmap/out_tss_matrix.gz",
+        outregions = "data/deeptools/tss_heatmap/out_tss_regions.bed",
+        outmatrix = "data/deeptools/tss_heatmap/out_heatmap_values.txt"
+    shell:
+        """
+        computeMatrix reference-point -S {input.bigwigs} -R {params.gtf_file} -b 3000 -a 3000 --binSize 50 --skipZeros --smartLabels --outFileName {params.outfile} --outFileSortedRegions {params.outregions} --outFileNameMatrix {params.outmatrix} 
+        """
+
+rule plot_tss_heatmap:
+    input:
+        matrix = "data/deeptools/tss_heatmap/out_tss_matrix.gz"
+    output:
+        plot = "data/deeptools/tss_heatmap/tss_heatmap.pdf"
+    conda:
+        "envs/deeptools.yaml"
+    params:
+        plotfile = "data/deeptools/tss_heatmap/tss_heatmap.pdf"
+    shell:
+        """
+        plotHeatmap -m {input.matrix} -o {params.plotfile}
         """
 
 # rule fragment length distribution

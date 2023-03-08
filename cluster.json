@@ -75,6 +75,16 @@
         "stdout": "logs/deeptools_corr_%A.out",
         "stderr": "logs/deeptools_corr_%A.err"
     },
+    "compute_matrix":
+    {
+        "stdout": "logs/computeMatrix_%A.out",
+        "stderr": "logs/computeMatrix_%A.err"
+    },
+    "plot_tss_heatmap":
+    {
+        "stdout": "logs/tssHeatmap_%A.out",
+        "stderr": "logs/tssHeatmap_%A.err"
+    },
     "macs2_callpeaks_q05":
     {
         "stdout": "logs/macs2_q05_%A.out",
