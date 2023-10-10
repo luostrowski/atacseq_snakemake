@@ -1,13 +1,13 @@
 {
     "__default__":
     {
-        "account": "davibr",
+        "account": "henriqul",
         "mem": "30G",
         "time": "0-24:00",
-	    "partition": "exacloud",
+	    "partition": "basic",
 	    "cores": "8",
 	    "nodes": "1",
-        "qos": "normal"
+        "qos": "basic"
     },
     "fastqc_raw":
     {

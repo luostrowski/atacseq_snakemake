@@ -53,7 +53,7 @@ rule fastqc_raw:
     shell:
         "fastqc -o {params.outdir} {input.fwd} {input.rev}"
 
-# perform multiqc on fastqc results
+## perform multiqc on fastqc results
 
 rule trimmomatic:
     input:
@@ -90,14 +90,14 @@ rule samtools_sort:
         bam_file = "data/bowtie2/a_sorted_bams/{sample}.bam"
     output:
         outfile = "data/bowtie2/a_sorted_bams/{sample}.sorted.bam",
-        count = "data/bowtie2/a_sorted_bams/{sample}.read_count.txt"
+        counts = "data/bowtie2/a_sorted_bams/{sample}.read_count.txt"
     conda:
         "envs/bowtie2.yaml"
     shell:
         """
         samtools sort -o {output.outfile} {input.bam_file}
         rm {input.bam_file}
-        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.count}
+        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.counts}
         """
 
 rule samtools_index:
@@ -116,7 +116,7 @@ rule remove_MT:
         bai = "data/bowtie2/a_sorted_bams/{sample}.sorted.bam.bai"
     output:
         outfile = "data/bowtie2/b_noMT/{sample}.sorted.noMT.bam",
-        count = "data/bowtie2/b_noMT/{sample}.read_count.txt"
+        counts = "data/bowtie2/b_noMT/{sample}.read_count.txt"
     conda:
         "envs/bowtie2.yaml"
     params:
@@ -124,7 +124,7 @@ rule remove_MT:
     shell:
         """
         samtools idxstats {input.bam_file} | cut -f 1 | grep -v {params.mt_chr} | xargs samtools view -b {input.bam_file} > {output.outfile}
-        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.count}
+        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.counts}
         """
 
 rule picard_mark_dups:
@@ -133,7 +133,7 @@ rule picard_mark_dups:
     output:
         outfile = "data/bowtie2/c_rmDups/{sample}.sorted.noMT.rmDups.bam",
         metrics = "data/bowtie2/c_rmDups/{sample}.dup_metrics.txt",
-        count = "data/bowtie2/c_rmDups/{sample}.read_count.txt"
+        counts = "data/bowtie2/c_rmDups/{sample}.read_count.txt"
     conda:
         "envs/picard.yaml"
     shell:
@@ -145,7 +145,7 @@ rule picard_mark_dups:
             REMOVE_DUPLICATES=true \
             VALIDATION_STRINGENCY=LENIENT \
             MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=1000
-        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.count}
+        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.counts}
         """
 
 rule filter_mapq30:
@@ -153,13 +153,13 @@ rule filter_mapq30:
         bam_file = "data/bowtie2/c_rmDups/{sample}.sorted.noMT.rmDups.bam"
     output:
         outfile = "data/bowtie2/d_mapq30/{sample}.sorted.noMT.rmDups.mapq30.bam",
-        count = "data/bowtie2/d_mapq30/{sample}.read_count.txt"
+        counts = "data/bowtie2/d_mapq30/{sample}.read_count.txt"
     conda:
         "envs/bowtie2.yaml"
     shell:
         """
         samtools view -h -q 30 {input.bam_file} > {output.outfile}
-        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.count}
+        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.counts}
         """
 
 rule proper_pairs:
@@ -167,13 +167,13 @@ rule proper_pairs:
         bam_file = "data/bowtie2/d_mapq30/{sample}.sorted.noMT.rmDups.mapq30.bam"
     output:
         outfile = "data/bowtie2/e_proper_pair/{sample}.sorted.noMT.rmDups.mapq30.proper.bam",
-        count = "data/bowtie2/e_proper_pair/{sample}.read_count.txt"
+        counts = "data/bowtie2/e_proper_pair/{sample}.read_count.txt"
     conda:
         "envs/bowtie2.yaml"
     shell:
         """
         samtools view -b -f 0x02 {input.bam_file} > {output.outfile}
-        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.count}
+        samtools view -F 0x4 {output.outfile} | cut -f 1 | sort | uniq | wc -l > {output.counts}
         """
 
 rule samtools_index_final:
@@ -191,8 +191,8 @@ rule collect_bam_metrics:
         expand("data/bowtie2/e_proper_pair/{sample}.read_count.txt", sample = SAMPLES),
         expand("data/bowtie2/c_rmDups/{sample}.dup_metrics.txt", sample = SAMPLES)
     output:
-        #bam_metrics = "data/bowtie2/metrics/bam_metrics.txt"
-        #dup_metrics = "data/bowtie2/metrics/dup_metrics.txt"
+        ##bam_metrics = "data/bowtie2/metrics/bam_metrics.txt"
+        ##dup_metrics = "data/bowtie2/metrics/dup_metrics.txt"
         outfile = "data/bowtie2/metrics/summary_metrics.txt"
     conda:
         "envs/python3_general.yaml"
@@ -255,7 +255,7 @@ rule compute_matrix:
     conda:
         "envs/deeptools.yaml"
     params:
-        #input_bws = ','.join(expand("data/deeptools/norm_bigwigs/{sample}.SeqDepthNorm.bw", sample = SAMPLES)),
+        ##input_bws = ','.join(expand("data/deeptools/norm_bigwigs/{sample}.SeqDepthNorm.bw", sample = SAMPLES)),
         gtf_file = config["gtf"],
         outfile = "data/deeptools/tss_heatmap/out_tss_matrix.gz",
         outregions = "data/deeptools/tss_heatmap/out_tss_regions.bed",
@@ -279,8 +279,8 @@ rule plot_tss_heatmap:
         plotHeatmap -m {input.matrix} -o {params.plotfile}
         """
 
-# rule fragment length distribution
-# rule blacklist regions?
+## rule fragment length distribution
+## rule blacklist regions?
 
 rule macs2_callpeaks_q05:
     input:

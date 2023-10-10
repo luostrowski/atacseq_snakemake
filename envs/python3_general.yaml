@@ -40,4 +40,3 @@ dependencies:
   - wheel=0.37.1=pyhd8ed1ab_0
   - xz=5.2.5=h516909a_1
   - zlib=1.2.12=h166bdaf_2
-prefix: /home/groups/hoolock2/u0/bd/miniconda3/envs/python3_general

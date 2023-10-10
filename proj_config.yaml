@@ -4,22 +4,24 @@ adapters:
   ILLUMINACLIP:NexteraPE-PE.fa:2:30:10:8:true
 
 bt2_genome:
-  /home/groups/hoolock2/u0/genomes/ucsc/mm10/indexes/bowtie2/mm10
+  /home/groups/Agarwal_A_Data/Luiza/chip-seq/genomes/ucsc/hg38/indexes/bowtie/hg38
 
 gtf:
-  /home/groups/hoolock2/u0/genomes/ucsc/mm10/annotation/mm10.ncbiRefSeq.gtf
+  /home/groups/Agarwal_A_Data/Luiza/chip-seq/genomes/ucsc/hg38/annotation/hg38.ncbiRefSeq.gtf
 
 mt_chr:
   chrM
 
 effective_genome_size:
-  2652783500
+  2913022398
 
 macs2_genome:
-  mm
+  hs
 
 contrasts:
-  - Got2KD_vs_Ctrl
+  - Iso_vs_Ctrl
+  - Rux_vs_Ctrl
+  - Rap_vs_Ctrl
 
 analysis_method:
   DBA_EDGER
@@ -31,7 +33,7 @@ fdr_cutoff:
   0.05
 
 data_source:
-  mm10
+  hg38
 
 organism:
-  Mus_musculus
+  Homo_sapiens

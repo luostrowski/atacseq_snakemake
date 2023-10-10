@@ -92,4 +92,3 @@ dependencies:
   - xz=5.2.5=h516909a_1
   - zlib=1.2.11=h516909a_1007
   - zstd=1.4.5=h6597ccf_2
-prefix: /home/groups/hoolock2/u0/bd/miniconda3/envs/MACS2
