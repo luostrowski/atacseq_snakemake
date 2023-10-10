@@ -84,4 +84,4 @@ snakemake --rerun-incomplete --use-conda --jobs 100 --latency-wait 60 --cluster-
 
 ## Directed acyclic graph of the steps
 
-![DAG](dag_simplified.pdf)
+![DAG](simplified_dag.pdf)
